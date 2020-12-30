@@ -19,37 +19,37 @@ print(colors.OKGREEN+'[/]'+colors.ENDC+' 5.lowercase '+colors.YELLOW+'(e.g. rock
 user_rename_type = int(input('Format: '))
 
 global path, listfolders_path, renamed_file, source_file, filename
+def pathValid():
+    path = os.path.normpath(input(colors.MAGENTA+'[~]'+colors.ENDC+' Select your directory: ')) + '/'
+    if os.path.isdir(path):
+        listfolders_path  = os.listdir(path)
+        for count, filename in enumerate(listfolders_path,1): 
+            source_file = path+filename
+            renamed_file_numbering = str(count)
+            if user_rename_type == 1: 
+                renamed_file_numbering = path+renamed_file_numbering+'.'+filename
+                os.rename(source_file, renamed_file_numbering)
+            elif user_rename_type == 2:
+                renamed_file_numbering = path+renamed_file_numbering
+                os.rename(source_file, renamed_file_numbering)
+                
+        for file_name in listfolders_path:
+            old_file_path = os.path.join(path, file_name)
+            if user_rename_type == 3:
+                date_taken =  datetime.datetime.today().strftime ('%d-%b-%Y')
+                new_file_name = date_taken+" "+file_name
+                new_file_path = os.path.join(path, new_file_name)
+                os.rename(old_file_path, new_file_path)
+            if user_rename_type == 4:
+                new_file_name = file_name.upper()
+                new_file_path = os.path.join(path, new_file_name)
+                os.rename(old_file_path, new_file_path)
+            if user_rename_type == 5:
+                new_file_name = file_name.lower()
+                new_file_path = os.path.join(path, new_file_name)
+                os.rename(old_file_path, new_file_path)
 
-path = input(colors.MAGENTA+'[~]'+colors.ENDC+' Select your directory: ')+'/'
-if os.path.isdir(path):
-    listfolders_path  = os.listdir(path)
-    for count, filename in enumerate(listfolders_path,1): 
-        source_file = path+filename
-        renamed_file_numbering = str(count)
-        if user_rename_type == 1: 
-            renamed_file_numbering = path+renamed_file_numbering+'.'+filename
-            os.rename(source_file, renamed_file_numbering)
-        elif user_rename_type == 2:
-            renamed_file_numbering = path+renamed_file_numbering
-            os.rename(source_file, renamed_file_numbering)
-            
-    file_names = os.listdir(path)
-    for file_name in file_names:
-        old_file_path = os.path.join(path, file_name)
-        if user_rename_type == 3:
-            date_taken =  datetime.datetime.today().strftime ('%d-%b-%Y')
-            new_file_name = date_taken+" "+file_name
-            new_file_path = os.path.join(path, new_file_name)
-            os.rename(old_file_path, new_file_path)
-        if user_rename_type == 4:
-            new_file_name = file_name.upper()
-            new_file_path = os.path.join(path, new_file_name)
-            os.rename(old_file_path, new_file_path)
-        if user_rename_type == 5:
-            new_file_name = file_name.lower()
-            new_file_path = os.path.join(path, new_file_name)
-            os.rename(old_file_path, new_file_path)
-
-else:
-    print("Not a valid directory")
-    exit()
+    else:
+        print("Not a valid directory")  
+        pathValid()
+pathValid()
