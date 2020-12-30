@@ -38,7 +38,7 @@ global path, listfolders_path, renamed_file, source_file, filename
 
 def pathValid():
     path = os.path.normpath(input(colors.MAGENTA + '[~]' + colors.ENDC
-                            + ' Select your directory: (press enter for current directory)')) + '/'
+                            + ' Select your directory (press enter for current directory): ')) + '/'
     if os.path.isdir(path):
         listfolders_path = os.listdir(path)
         for (count, filename) in enumerate(listfolders_path, 1):
